@@ -1,3 +1,4 @@
+import apiUrl from '../utils/APIConfig'
 import './RegisterPage.css'
 
 const ArtistPage = () => {
@@ -7,7 +8,7 @@ const ArtistPage = () => {
     e.preventDefault()
 
     try {
-      const response = await fetch('http://localhost:8080/profile', {
+      const response = await fetch(`${apiUrl}/profile`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',

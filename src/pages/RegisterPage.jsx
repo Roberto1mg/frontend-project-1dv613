@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
+import apiUrl from '../utils/APIConfig'
 import './RegisterPage.css'
 
 const RegisterPage = () => {
@@ -24,7 +25,7 @@ const RegisterPage = () => {
     }
 
     try {
-      const response = await fetch('http://localhost:8080/register', {
+      const response = await fetch(`${apiUrl}/register`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

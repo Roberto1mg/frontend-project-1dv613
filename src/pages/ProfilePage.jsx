@@ -1,6 +1,7 @@
 import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import { useAuth } from '../utils/AuthContext'
+import apiUrl from '../utils/APIConfig'
 import './RegisterPage.css'
 
 const ProfilePage = () => {
@@ -14,7 +15,7 @@ const ProfilePage = () => {
     e.preventDefault()
 
     try {
-      const response = await fetch('http://localhost:8080/logout', {
+      const response = await fetch(`${apiUrl}/logout`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
