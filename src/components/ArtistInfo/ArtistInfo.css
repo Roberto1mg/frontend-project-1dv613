@@ -1,0 +1,49 @@
+.artist-card {
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 10px;
+  margin-bottom: 20px;
+  background-color: #f9f9f9;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.artist-info {
+  display: flex;
+  align-items: center;
+}
+
+.artist-image {
+  width: 150px;
+  height: auto;
+  border-radius: 8px;
+  margin-right: 20px;
+}
+
+.artist-details {
+  flex-grow: 1;
+}
+
+.artist-title {
+  font-size: 1rem;
+  margin-bottom: 5px;
+  color: #333;
+}
+
+.artist-genre {
+  font-size: 0.9rem;
+  margin-bottom: 5px;
+}
+
+.spotify-link {
+  margin-top: 5px;
+}
+
+.spotify-link a {
+  text-decoration: none;
+  color: #1DB954;
+}
+
+.spotify-link a:hover {
+  color: #0f834d;
+}

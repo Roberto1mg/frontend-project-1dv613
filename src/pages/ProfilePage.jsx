@@ -40,14 +40,12 @@ const ProfilePage = () => {
     } 
   }
 
-  // If user is not logged in, redirect to login page
   if (!isLoggedIn) {
     return (
       <h1>You are not logged in!!!</h1>
     )
   }
 
-  // If user is logged in, render the profile content
   return (
     <>
       <section>

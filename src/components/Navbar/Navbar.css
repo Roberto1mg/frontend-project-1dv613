@@ -23,11 +23,6 @@
   margin-right: 10px;
 }
 
-.nav-text-input {
-  font-size: 16px;
-  width: 400px;
-}
-
 .nav-list {
   list-style-type: none;
   display: flex;
