@@ -2,13 +2,10 @@ import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import { useAuth } from '../utils/AuthContext'
 import apiUrl from '../utils/APIConfig'
-import './RegisterPage.css'
 
 const ProfilePage = () => {
   const { isLoggedIn, logout } = useAuth()
-
   const username = localStorage.getItem('username')
-
   const navigate = useNavigate()
 
   const handleLogout = async (e) => {
@@ -48,14 +45,12 @@ const ProfilePage = () => {
 
   return (
     <>
-      <section>
-        <h1>Welcome to your profile {username}!</h1>
+      <h1>Welcome to your profile {username}!</h1>
 
-        <form onSubmit={handleLogout}>
-          <h2>Are you sure you want to log out, {username}?</h2>
-          <button type='submit'>Logout</button>
-        </form>
-      </section>
+      <form onSubmit={handleLogout}>
+        <h2>Are you sure you want to log out, {username}?</h2>
+        <button type='submit'>Logout</button>
+      </form>
     </>
   )
 }

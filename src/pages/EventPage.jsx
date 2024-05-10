@@ -1,18 +1,21 @@
 import { useEffect, useState, useCallback } from 'react'
 import { useParams } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import apiUrl from '../utils/APIConfig'
 import EventInfo from '../components/EventInfo/EventInfo'
+import ArtistInfo from '../components/ArtistInfo/ArtistInfo'
 import Spinner from '../components/Spinner/Spinner'
 
 const ArtistDetailPage = () => {
-  const { artistID } = useParams()
-  const jwt = localStorage.getItem('jwt')
+  const { eventID } = useParams()
   const [eventsData, setEventsData] = useState([])
   const [loading, setLoading] = useState(true)
+  const jwt = localStorage.getItem('jwt')
+  const navigate = useNavigate()
 
   const fetchEvents = useCallback(async () => {
     try {
-      const response = await fetch(`${apiUrl}/artists/events/${artistID}`, {
+      const response = await fetch(`${apiUrl}/artists/event/${eventID}`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -23,7 +26,12 @@ const ArtistDetailPage = () => {
       const eventData = await response.json()
       console.log(eventData)
 
+      if (!eventData.success) {
+        navigate('/404')
+        return
+      } else 
       if (!response.ok) {
+        navigate('/error')
         throw new Error('Failed to fetch events data')
       }
 
@@ -33,11 +41,11 @@ const ArtistDetailPage = () => {
     } finally {
       setLoading(false)
     }
-  }, [artistID, jwt])
+  }, [eventID, jwt, navigate])
 
   useEffect(() => {
     fetchEvents()
-  }, [artistID, fetchEvents])
+  }, [eventID, fetchEvents])
 
   if (loading) {
     return <Spinner />
@@ -45,19 +53,16 @@ const ArtistDetailPage = () => {
 
   return (
     <>
-      {eventsData && eventsData.events && eventsData.events.length > 0 ? (
-        <>
-          <h1>{eventsData.name}</h1>
-          {eventsData.events.map(event => (
-            <EventInfo key={event.id} event={event} />
+      <div className="event-container">
+        <EventInfo event={eventsData.events} />
+
+        <h4 className="center-text">Performing in - {eventsData.events.name}:</h4>
+        <div className="artist-container">
+          {eventsData.artists.map(artist => (
+            <ArtistInfo key={artist.id} artist={artist} />
           ))}
-        </>
-      ) : (
-        <>
-          <h1>{eventsData.name}</h1>
-          <p>No future events</p>
-        </>
-      )}
+        </div>
+      </div>
     </>
   )
 }

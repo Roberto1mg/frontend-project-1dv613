@@ -3,14 +3,11 @@ import { Link, useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import { useAuth } from '../utils/AuthContext'
 import apiUrl from '../utils/APIConfig'
-import './RegisterPage.css'
 
 const LoginPage = () => {
   const { login } = useAuth()
-
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
-
   const navigate = useNavigate()
 
   const handleSubmit = async (e) => {
@@ -57,32 +54,30 @@ const LoginPage = () => {
   }
 
   return (
-    <section>
-      <div>
-        <div>
-          <form onSubmit={handleSubmit}>
-            <h2>Log in to your account!</h2>
+    <>
+      <div className="form-container">
+        <form onSubmit={handleSubmit}>
+          <h2>Log in to your account!</h2>
 
-            <div>
-              <label>Username:</label>
-              <input className="input-form" type='text' id='username' name='username' placeholder='Type your username here!' required value={username} onChange={(e) => setUsername(e.target.value)}/>
-            </div>
+          <div>
+            <label>Username:</label>
+            <input className="input-form" type='text' id='username' name='username' placeholder='Type your username here!' required value={username} onChange={(e) => setUsername(e.target.value)}/>
+          </div>
 
-            <div>
-              <label>Password:</label>
-              <input className="input-form" type='password' id='password' name='password' placeholder='Type your password here!' required value={password} onChange={(e) => setPassword(e.target.value)}/>
-            </div>
+          <div>
+            <label>Password:</label>
+            <input className="input-form" type='password' id='password' name='password' placeholder='Type your password here!' required value={password} onChange={(e) => setPassword(e.target.value)}/>
+          </div>
 
-            <button type='submit'>Log in</button>
+          <button className="btn-submit" type='submit'>Log in</button>
 
-            <p>
-              Not registered? <Link to='/register'>Sign up here!</Link>
-            </p>
+          <p>
+            Not registered? <Link to='/register'>Sign up here!</Link>
+          </p>
 
-          </form>
-        </div>
+        </form>
       </div>
-    </section>
+    </>
   )
 }
 

@@ -1,24 +1,21 @@
 import { useEffect, useState, useCallback } from 'react'
+import { useParams } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom'
 import apiUrl from '../utils/APIConfig'
 import ArtistInfo from '../components/ArtistInfo/ArtistInfo'
+import EventInfo from '../components/EventInfo/EventInfo'
 import Spinner from '../components/Spinner/Spinner'
-import PropTypes from 'prop-types'
-import './RegisterPage.css'
 
-const ArtistPage = ({ searchQuery }) => {
-  const jwt = localStorage.getItem('jwt')
-  const [artistData, setArtistData] = useState(null)
+const ArtistDetailPage = () => {
+  const { artistID } = useParams()
+  const [eventsData, setEventsData] = useState([])
   const [loading, setLoading] = useState(true)
+  const jwt = localStorage.getItem('jwt')
   const navigate = useNavigate()
 
-  const handleArtistClick = (artistID) => {
-    navigate(`/artist/${artistID}`)
-  }
-
-  const fetchArtist = useCallback(async () => {
+  const fetchEvents = useCallback(async () => {
     try {
-      const response = await fetch(`${apiUrl}/artists/artist/${searchQuery}`, {
+      const response = await fetch(`${apiUrl}/artists/events/${artistID}`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -26,26 +23,29 @@ const ArtistPage = ({ searchQuery }) => {
         },
       })
 
-      const responseData = await response.json()
-      console.log(responseData)
+      const eventData = await response.json()
+      console.log(eventData)
 
+      if (!eventData.success) {
+        navigate('/404')
+        return
+      } else 
       if (!response.ok) {
-        throw new Error('Failed to fetch artist data')
+        navigate('/error')
+        throw new Error('Failed to fetch events data')
       }
 
-      setArtistData(responseData)
+      setEventsData(eventData)
     } catch (error) {
-      console.error('Error fetching artist data:', error)
+      console.error('Error fetching events data:', error)
     } finally {
       setLoading(false)
     }
-  }, [searchQuery, jwt])
+  }, [artistID, jwt, navigate])
 
   useEffect(() => {
-    if (searchQuery) {
-      fetchArtist()
-    }
-  }, [searchQuery, fetchArtist])
+    fetchEvents()
+  }, [artistID, fetchEvents])
 
   if (loading) {
     return <Spinner />
@@ -53,18 +53,23 @@ const ArtistPage = ({ searchQuery }) => {
 
   return (
     <>
-      <h1>Artist Page</h1>
-      <div>
-        {artistData && artistData.artists.map(artist => (
-          <ArtistInfo key={artist.id} artist={artist} onClick={handleArtistClick} />
-        ))}
+      <div className="event-container">
+      <ArtistInfo artist={eventsData.artists} />
+      {eventsData && eventsData.events && eventsData.events.length > 0 ? (
+        <>
+          <h4 className="center-text">Future events:</h4>
+          {eventsData.events.map(event => (
+            <EventInfo key={event.id} event={event} />
+          ))}
+        </>
+      ) : (
+        <>
+          <p className="center-text">{eventsData.artists.name} currently has no future events planned.</p>
+        </>
+      )}
       </div>
     </>
   )
 }
 
-ArtistPage.propTypes = {
-  searchQuery: PropTypes.string.isRequired,
-}
-
-export default ArtistPage
+export default ArtistDetailPage

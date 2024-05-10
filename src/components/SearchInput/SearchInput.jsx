@@ -6,6 +6,7 @@ const SearchInput = ({ value, onChange, onSubmit }) => {
     if (e.key === 'Enter') {
       e.preventDefault()
       onSubmit(e)
+      e.target.blur()
     }
   }
 

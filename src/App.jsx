@@ -6,10 +6,14 @@ import RegisterPage from './pages/RegisterPage'
 import HomePage from './pages/HomePage'
 import LoginPage from './pages/LoginPage'
 import ProfilePage from './pages/ProfilePage'
-import ArtistPage from './pages/ArtistPage'
+import SearchPage from './pages/SearchPage'
 import ContactPage from './pages/ContactPage'
 import FestivalPage from './pages/FestivalPage'
-import ArtistDetailPage from './pages/ArtistDetailPage'
+import ArtistPage from './pages/ArtistPage'
+import EventPage from './pages/EventPage'
+import ErrorUnexpectedPage from './pages/Errors/ErrorUnexpectedPage'
+import ErrorNotFoundPage from './pages/Errors/ErrorNotFoundPage'
+import ErrorUnauthorizedPage from './pages/Errors/ErrorUnauthorizedPage'
 import '../public/style.css'
 
 function App() {
@@ -29,9 +33,13 @@ function App() {
             <Route path="/login" element={<LoginPage />} />
             <Route path="/register" element={<RegisterPage />} />
             <Route path="/contact" element={<ContactPage />} />
-            <Route path='/artist' element={<ArtistPage searchQuery={searchQuery} />} />
-            <Route path="/artist/:artistID" element={<ArtistDetailPage />} />
+            <Route path='/artist' element={<SearchPage searchQuery={searchQuery} />} />
+            <Route path="/artist/:artistID" element={<ArtistPage />} />
+            <Route path="/event/:eventID" element={<EventPage />} />
             <Route path="/festival" element={<FestivalPage />} />
+            <Route path='/error' element={<ErrorUnexpectedPage />} />
+            <Route path='/unauthorized' element={<ErrorUnauthorizedPage />} />
+            <Route path='*' element={<ErrorNotFoundPage />} />
           </Route>
         </Routes>
       </BrowserRouter>

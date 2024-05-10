@@ -2,7 +2,6 @@ import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import apiUrl from '../utils/APIConfig'
-import './RegisterPage.css'
 
 const RegisterPage = () => {
   const [firstName, setFirstName] = useState('')
@@ -47,47 +46,43 @@ const RegisterPage = () => {
   }
 
   return (
-    <section>
-      <div>
+    <div className="form-container">
+      <form onSubmit={submitForm}>
+        <h2>Register a new account here!</h2>
+
         <div>
-          <form onSubmit={submitForm}>
-            <h2>Register a new account here!</h2>
-
-            <div>
-            <label>First name:</label>
-              <input className="input-form" type='text' id='firstName' name='firstName' placeholder='Type your first name here!' required value={firstName} onChange={(e) => setFirstName(e.target.value)}/>
-            </div>
-
-            <div>
-              <label>Last name:</label>
-              <input className="input-form" type='text' id='lastName' name='lastName' placeholder='Type your last name here!' required value={lastName} onChange={(e) => setLastName(e.target.value)}/>
-            </div>
-
-            <div>
-              <label>Email:</label>
-              <input className="input-form" type='email' id='email' name='email' placeholder='Type your email here!' required value={email} onChange={(e) => setEmail(e.target.value)}/>
-            </div>
-
-            <div>
-              <label>Username:</label>
-              <input className="input-form" type='text' id='username' name='username' placeholder='Type your username here!' required value={username} onChange={(e) => setUsername(e.target.value)}/>
-            </div>
-
-            <div>
-              <label>Password:</label>
-              <input className="input-form" type='password' id='password' name='password' placeholder='Type your password here!' required value={password} onChange={(e) => setPassword(e.target.value)}/>
-            </div>
-
-            <button type='submit'>Register</button>
-
-            <p>
-              Already have an account? <Link to='/login'>Log in here!</Link>
-            </p>
-
-          </form>
+        <label>First name:</label>
+          <input className="input-form" type='text' id='firstName' name='firstName' placeholder='Type your first name here!' required value={firstName} onChange={(e) => setFirstName(e.target.value)}/>
         </div>
-      </div>
-    </section>
+
+        <div>
+          <label>Last name:</label>
+          <input className="input-form" type='text' id='lastName' name='lastName' placeholder='Type your last name here!' required value={lastName} onChange={(e) => setLastName(e.target.value)}/>
+        </div>
+
+        <div>
+          <label>Email:</label>
+          <input className="input-form" type='email' id='email' name='email' placeholder='Type your email here!' required value={email} onChange={(e) => setEmail(e.target.value)}/>
+        </div>
+
+        <div>
+          <label>Username:</label>
+          <input className="input-form" type='text' id='username' name='username' placeholder='Type your username here!' required value={username} onChange={(e) => setUsername(e.target.value)}/>
+        </div>
+
+        <div>
+          <label>Password:</label>
+          <input className="input-form" type='password' id='password' name='password' placeholder='Type your password here!' required value={password} onChange={(e) => setPassword(e.target.value)}/>
+        </div>
+
+        <button className="btn-submit" type='submit'>Register</button>
+
+        <p>
+          Already have an account? <Link to='/login'>Log in here!</Link>
+        </p>
+
+      </form>
+    </div>
   )
 }
 

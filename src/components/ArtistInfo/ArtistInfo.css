@@ -1,42 +1,25 @@
 .artist-card {
-  border: 1px solid #ccc;
+  background-color: #ececec;
+  border: 1px solid #c1bfbf;
   border-radius: 8px;
   padding: 10px;
-  margin-bottom: 20px;
-  background-color: #f9f9f9;
-  max-width: 600px;
-  margin: 0 auto;
-}
-
-.artist-info {
-  display: flex;
-  align-items: center;
-}
-
-.artist-image {
-  width: 150px;
-  height: auto;
-  border-radius: 8px;
-  margin-right: 20px;
-}
-
-.artist-details {
-  flex-grow: 1;
+  text-align: center;
 }
 
 .artist-title {
-  font-size: 1rem;
-  margin-bottom: 5px;
-  color: #333;
+  font-size: 18px;
+  font-weight: bold;
 }
 
-.artist-genre {
-  font-size: 0.9rem;
-  margin-bottom: 5px;
+.artist-image {
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto 0px;
+  border-radius: 5px;
 }
 
-.spotify-link {
-  margin-top: 5px;
+.artist-image:hover {
+  cursor: pointer;
 }
 
 .spotify-link a {
