@@ -1,8 +1,8 @@
 .event-card {
   background-color: #ececec;
+  border: 1px solid #c1bfbf;
   border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  padding: 15px;
+  padding: 10px;
   width: 600px;
   margin: 0 auto;
 }
@@ -39,4 +39,11 @@
   color: #888;
   margin: 10px;
   margin-left: 20px;
+}
+
+.event-image {
+  width: 100%; 
+  height: auto;
+  border-radius: 8px;
+  margin-bottom: 10px;
 }

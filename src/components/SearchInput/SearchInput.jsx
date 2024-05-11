@@ -1,11 +1,14 @@
-import PropTypes from 'prop-types'
+import { useNavigate } from 'react-router-dom'
 import './SearchInput.css'
 
-const SearchInput = ({ value, onChange, onSubmit }) => {
+const SearchInput = () => {
+  const navigate = useNavigate()
+
   const handleKeyDown = (e) => {
     if (e.key === 'Enter') {
       e.preventDefault()
-      onSubmit(e)
+      navigate(`/artist/`, { state: { searchValue: e.target.value } })
+      e.target.value=''
       e.target.blur()
     }
   }
@@ -15,17 +18,9 @@ const SearchInput = ({ value, onChange, onSubmit }) => {
       className="nav-text-input"
       type="text"
       placeholder="Search for artists or festivals here!"
-      value={value}
-      onChange={onChange}
       onKeyDown={handleKeyDown}
     />
   )
-}
-
-SearchInput.propTypes = {
-  value: PropTypes.string.isRequired,
-  onChange: PropTypes.func.isRequired,
-  onSubmit: PropTypes.func.isRequired,
 }
 
 export default SearchInput

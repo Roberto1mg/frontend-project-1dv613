@@ -1,19 +1,20 @@
 import { useEffect, useState, useCallback } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useLocation } from 'react-router-dom'
 import apiUrl from '../utils/APIConfig'
 import ArtistInfo from '../components/ArtistInfo/ArtistInfo'
 import Spinner from '../components/Spinner/Spinner'
-import PropTypes from 'prop-types'
 
-const ArtistPage = ({ searchQuery }) => {
-  const jwt = localStorage.getItem('jwt')
-  const [artistData, setArtistData] = useState(null)
+const SearchPage = () => {
+  const [artistData, setArtistData] = useState([])
   const [loading, setLoading] = useState(true)
+  const jwt = localStorage.getItem('jwt')
+  const location = useLocation()
+  const searchValue = location.state?.searchValue
   const navigate = useNavigate()
 
   const fetchArtist = useCallback(async () => {
     try {
-      const response = await fetch(`${apiUrl}/artists/artist/${searchQuery}`, {
+      const response = await fetch(`${apiUrl}/artists/artist/${searchValue}`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -35,14 +36,14 @@ const ArtistPage = ({ searchQuery }) => {
     } finally {
       setLoading(false)
     }
-  }, [searchQuery, jwt, navigate])
+  }, [searchValue, jwt, navigate])
 
   useEffect(() => {
-    if (searchQuery) {
+    if (searchValue) {
       setLoading(true)
       fetchArtist()
     }
-  }, [searchQuery, fetchArtist])
+  }, [searchValue, fetchArtist])
 
   if (loading) {
     return <Spinner />
@@ -50,22 +51,18 @@ const ArtistPage = ({ searchQuery }) => {
 
   return (
     <>
-      <h3 className="center-text">Results for: {searchQuery}</h3>
-      <div className="artist-container">
+      <h3 className="center-text">Results for: {searchValue}</h3>
         {artistData && artistData.artists.length > 0 ? (
-          artistData.artists.map(artist => (
+          <div className="artist-container">
+          {artistData.artists.map(artist => (
             <ArtistInfo key={artist.id} artist={artist} />
-          ))
+          ))}
+          </div>
         ) : (
-          <p className="center-text">No artist found by that name.</p>
+          <p className="center-text">Sorry, no artist found by that name.</p>
         )}
-      </div>
     </>
   )
 }
 
-ArtistPage.propTypes = {
-  searchQuery: PropTypes.string.isRequired,
-}
-
-export default ArtistPage
+export default SearchPage

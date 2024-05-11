@@ -1,8 +1,8 @@
-const FestivalPage = () => {
+const ContactPage = () => {
 
   return (
     <p>Contact Us</p>
   )
 }
 
-export default FestivalPage
+export default ContactPage

@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import { AuthProvider } from './utils/AuthContext'
 import MainLayout from './layouts/MainLayout'
@@ -17,23 +16,17 @@ import ErrorUnauthorizedPage from './pages/Errors/ErrorUnauthorizedPage'
 import '../public/style.css'
 
 function App() {
-  const [searchQuery, setSearchQuery] = useState('')
-
-  const handleFetchArtistData = (e) => {
-    setSearchQuery(e)
-  }
-
   return (
     <AuthProvider>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<MainLayout handleFetchArtistData={handleFetchArtistData} />} >
+          <Route path="/" element={<MainLayout />} >
             <Route index path="/" element={<HomePage />} />
             <Route path="/profile" element={<ProfilePage />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/register" element={<RegisterPage />} />
             <Route path="/contact" element={<ContactPage />} />
-            <Route path='/artist' element={<SearchPage searchQuery={searchQuery} />} />
+            <Route path='/artist/' element={<SearchPage />} />
             <Route path="/artist/:artistID" element={<ArtistPage />} />
             <Route path="/event/:eventID" element={<EventPage />} />
             <Route path="/festival" element={<FestivalPage />} />

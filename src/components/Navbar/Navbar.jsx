@@ -1,24 +1,11 @@
-import { Link, useNavigate } from 'react-router-dom'
-import { useState } from 'react'
+import { Link } from 'react-router-dom'
 import { useAuth } from '../../utils/AuthContext'
-import PropTypes from 'prop-types'
 import logo from '../../assets/images/logo.png'
 import SearchInput from '../SearchInput/SearchInput'
 import './Navbar.css'
 
-const Navbar = ({ handleFetchArtistData }) => {
+const Navbar = () => {
   const { isLoggedIn } = useAuth()
-  const [query, setQuery] = useState('')
-  const navigate = useNavigate()
-
-  console.log("Searching for (Navbar):", query)
-
-  const handleSearch = (e) => {
-    e.preventDefault()
-    handleFetchArtistData(query)
-    setQuery('')
-    navigate('/artist')
-  }
 
   return (
     <nav className="navbar">
@@ -26,9 +13,7 @@ const Navbar = ({ handleFetchArtistData }) => {
       <div className="left-section">
         <div className="title-input-container">
           <Link to="/" className="nav-title">StarStage<img className="logo" src={logo} alt='Star logo' /></Link>
-          <form onSubmit={handleSearch}>
-            <SearchInput value={query} onChange={(e) => setQuery(e.target.value)} onSubmit={handleSearch} />
-          </form>
+          <SearchInput />
         </div>
       </div>
 
@@ -51,10 +36,6 @@ const Navbar = ({ handleFetchArtistData }) => {
       </div>
     </nav>
   )
-}
-
-Navbar.propTypes = {
-  handleFetchArtistData: PropTypes.func.isRequired,
 }
 
 export default Navbar

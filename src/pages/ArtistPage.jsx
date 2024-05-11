@@ -6,7 +6,7 @@ import ArtistInfo from '../components/ArtistInfo/ArtistInfo'
 import EventInfo from '../components/EventInfo/EventInfo'
 import Spinner from '../components/Spinner/Spinner'
 
-const ArtistDetailPage = () => {
+const ArtistPage = () => {
   const { artistID } = useParams()
   const [eventsData, setEventsData] = useState([])
   const [loading, setLoading] = useState(true)
@@ -72,4 +72,4 @@ const ArtistDetailPage = () => {
   )
 }
 
-export default ArtistDetailPage
+export default ArtistPage
