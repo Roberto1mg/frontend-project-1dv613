@@ -15,14 +15,14 @@ const HomePage = () => {
   const fetchPopularArtists = useCallback(async () => {
     try {
       const [artistsResponse, eventResponse] = await Promise.all([
-        fetch(`${apiUrl}/artists/artist/+`, {
+        fetch(`${apiUrl}/artists/artists/+`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${jwt}`
           },
         }),
-        fetch(`${apiUrl}/artists/festivals/`, {
+        fetch(`${apiUrl}/artists/events/+`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',

@@ -14,7 +14,7 @@ const SearchPage = () => {
 
   const fetchArtist = useCallback(async () => {
     try {
-      const response = await fetch(`${apiUrl}/artists/artist/${searchValue}`, {
+      const response = await fetch(`${apiUrl}/artists/artists/${searchValue}`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
