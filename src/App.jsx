@@ -2,6 +2,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import { AuthProvider } from './utils/AuthContext'
 import MainLayout from './layouts/MainLayout'
 import RegisterPage from './pages/RegisterPage'
+import LogoutPage from './pages/LogoutPage'
 import HomePage from './pages/HomePage'
 import LoginPage from './pages/LoginPage'
 import ProfilePage from './pages/ProfilePage'
@@ -25,6 +26,7 @@ function App() {
             <Route path="/profile" element={<ProfilePage />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/register" element={<RegisterPage />} />
+            <Route path="/logout" element={<LogoutPage />} />
             <Route path="/contact" element={<ContactPage />} />
             <Route path='/artist/' element={<SearchPage />} />
             <Route path="/artist/:artistID" element={<ArtistPage />} />
