@@ -35,9 +35,12 @@ const LoginPage = () => {
       const responseData = await response.json()
       console.log(responseData)
 
-      // Store JWT token ans username in local storage
+      // Store JWT token ans user profile in local storage
       localStorage.setItem('jwt', responseData.access_token)
       localStorage.setItem('username', responseData.session.username)
+      localStorage.setItem('firstName', responseData.session.firstName)
+      localStorage.setItem('lastName', responseData.session.lastName)
+      localStorage.setItem('email', responseData.session.email)
 
       // Clear input fields
       setUsername('')

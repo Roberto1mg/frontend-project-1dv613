@@ -25,6 +25,7 @@ const Navbar = () => {
       {isLoggedIn ? (
         <>
           <li><Link to="/profile" className="nav-link">Profile</Link></li>
+          <li><Link to="/logout" className="nav-link">Log out</Link></li>
         </>
       ) : (
         <>
