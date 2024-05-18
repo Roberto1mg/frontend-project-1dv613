@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom'
 import PropTypes from 'prop-types'
+import FavoriteButton from '../FavoriteButton/FavoriteButton'
 import './ArtistInfo.css'
 
 const ArtistInfo = ({ artist }) => {
@@ -13,6 +14,7 @@ const ArtistInfo = ({ artist }) => {
     <div className="artist-card">
       <img src={artist.image} alt={artist.name} className="artist-image" onClick={() => handleArtistClick(artist.id)}/>
       <h2 className="artist-title" >{artist.name}</h2>
+      <FavoriteButton artist={artist} type="artist" />
 
       {artist.spotify && (
       <div className="spotify-link">
