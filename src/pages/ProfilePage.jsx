@@ -10,25 +10,40 @@ const ProfilePage = () => {
   const jwt = localStorage.getItem('jwt')
 
   const [artists, setArtists] = useState([])
+  const [events, setEvents] = useState([])
 
   useEffect(() => {
     const fetchArtists = async () => {
       try {
-        const response = await fetch(`${apiUrl}/favorites/artists`, {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${jwt}`
-          },
-        })
+        const [artistsResponse, eventResponse] = await Promise.all([
+          fetch(`${apiUrl}/favorites/artists`, {
+            method: 'GET',
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${jwt}`
+            },
+          }),
+          fetch(`${apiUrl}/favorites/events/`, {
+            method: 'GET',
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${jwt}`
+            },
+          }),
+        ])
 
-        const handledData = await response.json()
+        const artistsData = await artistsResponse.json()
+        console.log(artistsData)
   
-        if (!response.ok) {
+        const eventData = await eventResponse.json()
+        console.log(eventData)
+
+        if (!artistsResponse.ok || !eventResponse.ok) {
           throw new Error('Failed to fetch artists')
         }
 
-        setArtists(handledData.artists)
+        setArtists(artistsData.artists)
+        setEvents(eventData.events)
       } catch (error) {
         console.error('Error fetching artists:', error)
       }
@@ -52,11 +67,22 @@ const ProfilePage = () => {
       {artists.length > 0 ? (
         <div className="artist-container">
           {artists.map((artist) => (
-            <ArtistInfo key={artist.id} artist={artist} />
+            <ArtistInfo key={artist.id} item={artist} type={'artist'} />
           ))}
         </div>
       ) : (
-        <p className="center-text">No favorited artists found yet.</p>
+        <p className="center-text">No favorited artists found.</p>
+      )}
+
+      <h3 className="center-text">Favorited Events</h3>
+      {events.length > 0 ? (
+        <div className="artist-container">
+          {events.map((event) => (
+            <ArtistInfo key={event.id} item={event} type={'event'} />
+          ))}
+        </div>
+      ) : (
+        <p className="center-text">No favorited events found.</p>
       )}
     </>
   )

@@ -7,7 +7,7 @@ import PropTypes from 'prop-types'
 import apiUrl from '../../utils/APIConfig'
 import './FavoriteButton.css'
 
-const FavoriteButton = ({ artist, type }) => {
+const FavoriteButton = ({ item, type }) => {
   const [isFavorite, setIsFavorite] = useState(false)
   const jwt = localStorage.getItem('jwt')
   const navigate = useNavigate()
@@ -17,14 +17,14 @@ const FavoriteButton = ({ artist, type }) => {
       // Toggle the favorite state
       setIsFavorite(!isFavorite)
 
-      // Perform the POST request internally if needed
-      const response = await fetch(`${apiUrl}/favorites/${type}/${artist.id}`, {
+      // POST or DELETE request based on state
+      const response = await fetch(`${apiUrl}/favorites/${type}/${item.id}`, {
         method: isFavorite ? 'DELETE' : 'POST',
         headers: {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${jwt}`
         },
-        body: JSON.stringify(artist),
+        body: JSON.stringify(item),
       })
 
       const handledData = await response.json()
@@ -37,13 +37,15 @@ const FavoriteButton = ({ artist, type }) => {
         throw new Error('Failed to favorite/unfavorite the artist')
       }
 
+      const itemType = type === 'artist' ? 'Artist' : 'Event'
+
       if (isFavorite) {
-        toast.success('Artist removed from favorites successfully')
+        toast.success(`${itemType} removed from favorites successfully`)
       } else {
-        toast.success('Artist favorited successfully')
+        toast.success(`${itemType} favorited successfully`)
       }
 
-      console.log(`${type} ${artist.id} ${isFavorite ? 'removed from' : 'added to'} favorites`)
+      console.log(`${type} ${item.name} ${isFavorite ? 'removed from' : 'added to'} favorites`)
     } catch (error) {
       console.error('Error handling favorite:', error)
     }
@@ -57,12 +59,10 @@ const FavoriteButton = ({ artist, type }) => {
 }
 
 FavoriteButton.propTypes = {
-  artist: PropTypes.shape({
+  item: PropTypes.shape({
     name: PropTypes.string.isRequired,
-    image: PropTypes.string.isRequired,
-    id: PropTypes.string.isRequired,
-    spotify: PropTypes.string,
-  }).isRequired,
+    id: PropTypes.string.isRequired
+  }),
   type: PropTypes.oneOf(['artist', 'event']).isRequired,
 }
 

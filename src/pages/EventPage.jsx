@@ -2,7 +2,6 @@ import { useEffect, useState, useCallback } from 'react'
 import { useParams } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom'
 import apiUrl from '../utils/APIConfig'
-import EventInfo from '../components/EventInfo/EventInfo'
 import ArtistInfo from '../components/ArtistInfo/ArtistInfo'
 import Spinner from '../components/Spinner/Spinner'
 
@@ -53,15 +52,13 @@ const EventPage = () => {
 
   return (
     <>
-      <div className="event-container">
-        <EventInfo event={eventsData.events} />
+      <ArtistInfo item={eventsData.events} type={'event'} />
 
-        <h4 className="center-text">Performing in - {eventsData.events.name}:</h4>
-        <div className="artist-container">
-          {eventsData.artists.map(artist => (
-            <ArtistInfo key={artist.id} artist={artist} />
-          ))}
-        </div>
+      <h4 className="center-text">Performing in - {eventsData.events.name}:</h4>
+      <div className="artist-container">
+        {eventsData.artists.map(artist => (
+          <ArtistInfo key={artist.id} item={artist} type={'artist'} />
+        ))}
       </div>
     </>
   )

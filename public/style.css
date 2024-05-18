@@ -77,28 +77,6 @@ body {
   margin-right: 150px;
 }
 
-/* Event styling */
-.event-container {
-  display: grid;
-  gap: 20px;
-}
-
-/* Event styling in homepage */
-.event-container-homepage {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  margin-left: 150px;
-  margin-right: 150px;
-}
-
-.event-container-homepage .event-card {
-  width: calc(18% - 20px);
-  margin-bottom: 20px; 
-  padding: 10px;
-  gap: 20px;
-}
-
 /* Center text */
 .center-text {
   text-align: center;
