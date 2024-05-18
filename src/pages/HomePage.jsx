@@ -1,7 +1,6 @@
 import { useState, useEffect, useCallback } from 'react'
 import { useNavigate } from 'react-router-dom'
 import ArtistInfo from '../components/ArtistInfo/ArtistInfo'
-import EventInfo from '../components/EventInfo/EventInfo'
 import apiUrl from '../utils/APIConfig'
 import Spinner from '../components/Spinner/Spinner'
 
@@ -64,22 +63,18 @@ const HomePage = () => {
       <h1 className="center-text">Discover Artists</h1>
       <p className="center-text">Explore talented artists and musicians and see all their upcoming events here.</p>
 
-      <div className="popular-artists">
-        <h2 className="center-text">Popular Artists</h2>
-        <div className="artist-container">
-          {popularArtists.artists.slice(0, 10).map(artist => (
-            <ArtistInfo key={artist.id} artist={artist} />
-          ))}
-        </div>
+      <h2 className="center-text">Popular Artists</h2>
+      <div className="artist-container">
+        {popularArtists.artists.slice(0, 10).map(artist => (
+          <ArtistInfo key={artist.id} item={artist} type={'artist'} />
+        ))}
       </div>
 
-        <div className="upcoming-events">
-          <h2 className="center-text">Upcoming events:</h2>
-          <div className="event-container-homepage">
-            {upcomingEvents.events.slice(0, 10).map(event => (
-              <EventInfo key={event.id} event={event} />
-            ))}
-        </div>
+      <h2 className="center-text">Upcoming events:</h2>
+      <div className="artist-container">
+        {upcomingEvents.events.slice(0, 10).map(event => (
+          <ArtistInfo key={event.id} item={event} type={'event'} />
+        ))}
       </div>
     </>
   )

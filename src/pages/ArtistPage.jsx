@@ -3,7 +3,6 @@ import { useParams } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom'
 import apiUrl from '../utils/APIConfig'
 import ArtistInfo from '../components/ArtistInfo/ArtistInfo'
-import EventInfo from '../components/EventInfo/EventInfo'
 import Spinner from '../components/Spinner/Spinner'
 
 const ArtistPage = () => {
@@ -53,21 +52,21 @@ const ArtistPage = () => {
 
   return (
     <>
-      <div className="event-container">
-      <ArtistInfo artist={eventsData.artists} />
+      <ArtistInfo item={eventsData.artists} type={'artist'} />
       {eventsData && eventsData.events && eventsData.events.length > 0 ? (
         <>
-          <h4 className="center-text">Future events:</h4>
+          <h3 className="center-text">Future events:</h3>
+          <div className="artist-container">
           {eventsData.events.map(event => (
-            <EventInfo key={event.id} event={event} />
+              <ArtistInfo key={event.id} item={event} type={'event'} />
           ))}
+          </div>
         </>
       ) : (
         <>
           <p className="center-text">{eventsData.artists.name} currently has no future events planned.</p>
         </>
       )}
-      </div>
     </>
   )
 }

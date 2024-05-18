@@ -55,7 +55,7 @@ const SearchPage = () => {
         {artistData && artistData.artists.length > 0 ? (
           <div className="artist-container">
           {artistData.artists.map(artist => (
-            <ArtistInfo key={artist.id} artist={artist} />
+            <ArtistInfo key={artist.id} item={artist} type={'artist'} />
           ))}
           </div>
         ) : (
