@@ -6,8 +6,10 @@ html,
 body {
   margin: 0;
   padding: 0;
-  padding-bottom: 30px;
+  padding-bottom: 40px;
   font-family: Helvetica, sans-serif;
+  background-color: #d9e6e8;
+  color: #333;
 }
 
 /* Form styling */
@@ -15,8 +17,8 @@ body {
   margin: 50px auto;
   width: 80%;
   max-width: 500px;
-  background-color: #f5f5f5;
-  border-radius: 8px;
+  background-color: #ffffff;
+  border-radius: 12px;
   box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.1);
   padding: 20px;
 }
@@ -83,6 +85,17 @@ body {
 }
 
 /* Profile */
+.profile-container {
+  margin: 50px auto;
+  width: 80%;
+  max-width: 600px;
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 30px;
+  text-align: center;
+}
+
 .profile-info {
   display: flex;
   flex-direction: column;
@@ -95,10 +108,10 @@ body {
   padding: 10px 0;
   border-bottom: 1px solid #eee;
   display: flex;
+  justify-content: space-between;
 }
 
 .label {
-  width: 140px;
   font-weight: 600;
   color: #555;
 }

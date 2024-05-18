@@ -53,7 +53,7 @@ const ProfilePage = () => {
 
   return (
     <>
-      <div className="form-container">
+      <div className="profile-container">
         <h2 className="center-text">Welcome to your profile, {username}!</h2>
         <div className="profile-info">
           <p><span className="label">First Name:</span> {firstName}</p>
