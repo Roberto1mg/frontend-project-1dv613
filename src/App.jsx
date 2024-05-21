@@ -1,5 +1,5 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
-import { AuthProvider } from './utils/AuthContext'
+import { AuthProvider, PrivateRoute, PublicRoute } from './utils/AuthContext'
 import MainLayout from './layouts/MainLayout'
 import RegisterPage from './pages/RegisterPage'
 import LogoutPage from './pages/LogoutPage'
@@ -23,10 +23,10 @@ function App() {
         <Routes>
           <Route path="/" element={<MainLayout />} >
             <Route index path="/" element={<HomePage />} />
-            <Route path="/profile" element={<ProfilePage />} />
-            <Route path="/login" element={<LoginPage />} />
-            <Route path="/register" element={<RegisterPage />} />
-            <Route path="/logout" element={<LogoutPage />} />
+            <Route path="/login" element={<PublicRoute element={<LoginPage />} />} />
+            <Route path="/register" element={<PublicRoute element={<RegisterPage />} />} />
+            <Route path="/profile" element={<PrivateRoute element={<ProfilePage />} />} />
+            <Route path="/logout" element={<PrivateRoute element={<LogoutPage />} />} />
             <Route path="/contact" element={<ContactPage />} />
             <Route path='/artist/' element={<SearchPage />} />
             <Route path="/artist/:artistID" element={<ArtistPage />} />

@@ -1,18 +1,12 @@
-import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import { useAuth } from '../utils/AuthContext'
 import apiUrl from '../utils/APIConfig'
 
 const LogoutPage = () => {
-  const { isLoggedIn, logout } = useAuth()
+  const { logout } = useAuth()
   const username = localStorage.getItem('username')
   const navigate = useNavigate()
-
-  useEffect(() => {
-    if (!isLoggedIn) {
-      navigate('/login')
-    }})
 
   const handleLogout = async (e) => {
     e.preventDefault()
