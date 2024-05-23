@@ -5,7 +5,6 @@ import Footer from '../components/Footer/Footer'
 import 'react-toastify/dist/ReactToastify.css'
 
 const MainLayout = () => {
-  console.log('MainLayout created')
   return (
     <>
       <Navbar />

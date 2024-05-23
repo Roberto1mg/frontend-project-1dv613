@@ -35,23 +35,17 @@ const LoginPage = () => {
       const responseData = await response.json()
       console.log(responseData)
 
-      // Store JWT token ans user profile in local storage
-      localStorage.setItem('jwt', responseData.access_token)
-      localStorage.setItem('username', responseData.session.username)
-      localStorage.setItem('firstName', responseData.session.firstName)
-      localStorage.setItem('lastName', responseData.session.lastName)
-      localStorage.setItem('email', responseData.session.email)
-
       // Clear input fields
       setUsername('')
       setPassword('')
 
-      login()
+      login(responseData)
   
       toast.success('You are now logged in')
 
       return navigate('/profile')
     } catch (error) {
+      console.log(error)
       toast.error('Failed to log in')
     } 
   }

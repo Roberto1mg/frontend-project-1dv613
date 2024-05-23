@@ -1,51 +1,66 @@
 import { createContext, useContext, useState } from 'react'
-import {Navigate } from 'react-router-dom'
+import { toast } from 'react-toastify'
+import { jwtDecode } from 'jwt-decode'
 import PropTypes from 'prop-types'
 
 const AuthContext = createContext()
 
-export const AuthProvider = ({ children }) => {
-  const [isLoggedIn, setIsLoggedIn] = useState(localStorage.getItem('jwt') ? true : false)
+// Checks for the validity of the JWT.
+const isTokenValid = (token) => {
+  try {
+    const { exp } = jwtDecode(token)
+    if (exp * 1000 < Date.now()) {
+      return false
+    }
+    return true
+  } catch (error) {
+    return false
+  }
+}
 
-  const login = () => {
+export const AuthProvider = ({ children }) => {
+  localStorage.removeItem('searchValue')
+
+  // Sets the auth state for the application.
+  const [isLoggedIn, setIsLoggedIn] = useState(() => {
+    const token = localStorage.getItem('jwt')
+    return token ? isTokenValid(token) : false
+  })
+
+  // Checks the validity of the JWT - logs out if not valid.
+  const checkTokenValidity = () => {
+    const token = localStorage.getItem('jwt')
+    if (token && !isTokenValid(token)) {
+      logout()
+      setTimeout(() => {
+        toast.info('Session expired. Please log in again.')
+      }, 10)
+    }
+  }
+
+  const login = (req) => {
+    localStorage.setItem('jwt', req.access_token)
+    localStorage.setItem('username', req.session.username)
+    localStorage.setItem('firstName', req.session.firstName)
+    localStorage.setItem('lastName', req.session.lastName)
+    localStorage.setItem('email', req.session.email)
     setIsLoggedIn(true)
   }
 
   const logout = () => {
+    localStorage.clear()
     setIsLoggedIn(false)
   }
 
   return (
-    <AuthContext.Provider value={{ isLoggedIn, login, logout }}>
+    <AuthContext.Provider value={{ isLoggedIn, login, logout, checkTokenValidity }}>
       {children}
     </AuthContext.Provider>
   )
 }
 
-// Navigates to the login page if the user needs to be authorized to view a page.
-export const PrivateRoute = ({ element }) => {
-  const { isLoggedIn } = useAuth()
-
-  return isLoggedIn ? element : <Navigate to="/login" />
-}
-
-// Navigates to the profile page if the user needs to be unauthorized to view a page.
-export const PublicRoute = ({ element }) => {
-  const { isLoggedIn } = useAuth()
-
-  return isLoggedIn ? <Navigate to="/profile" replace /> : element
-}
-
 AuthProvider.propTypes = {
   children: PropTypes.node.isRequired,
-}
-
-PrivateRoute.propTypes = {
-  element: PropTypes.node.isRequired,
-}
-
-PublicRoute.propTypes = {
-  element: PropTypes.node.isRequired,
 }
 
 export const useAuth = () => useContext(AuthContext)

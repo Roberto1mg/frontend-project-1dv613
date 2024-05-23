@@ -24,15 +24,9 @@ const LogoutPage = () => {
         throw new Error('Failed to log out')
       }
 
-      localStorage.removeItem('jwt')
-      localStorage.removeItem('username')
-      localStorage.removeItem('firstName')
-      localStorage.removeItem('lastName')
-      localStorage.removeItem('email')
+      logout()
 
       toast.success('You have successfully logged out')
-
-      logout()
 
       return navigate('/')
     } catch (error) {

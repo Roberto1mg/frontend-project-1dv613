@@ -9,7 +9,7 @@ const SearchPage = () => {
   const [loading, setLoading] = useState(true)
   const jwt = localStorage.getItem('jwt')
   const location = useLocation()
-  const searchValue = location.state?.searchValue
+  const searchValue = location.state?.searchValue || localStorage.getItem('searchValue')
   const navigate = useNavigate()
 
   const fetchArtist = useCallback(async () => {
@@ -40,10 +40,17 @@ const SearchPage = () => {
 
   useEffect(() => {
     if (searchValue) {
+      localStorage.setItem('searchValue', searchValue)
       setLoading(true)
       fetchArtist()
     }
   }, [searchValue, fetchArtist])
+
+  if (!searchValue) {
+    return (
+      <h3 className="center-text">Search for an artist or festival and see the results here!</h3>
+    )
+  }
 
   if (loading) {
     return <Spinner />

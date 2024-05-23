@@ -1,5 +1,6 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
-import { AuthProvider, PrivateRoute, PublicRoute } from './utils/AuthContext'
+import { AuthProvider } from './utils/AuthContext'
+import { CheckTokenRoute, PrivateRoute, PublicRoute } from './utils/RouteConfig'
 import MainLayout from './layouts/MainLayout'
 import RegisterPage from './pages/RegisterPage'
 import LogoutPage from './pages/LogoutPage'
@@ -7,8 +8,7 @@ import HomePage from './pages/HomePage'
 import LoginPage from './pages/LoginPage'
 import ProfilePage from './pages/ProfilePage'
 import SearchPage from './pages/SearchPage'
-import ContactPage from './pages/ContactPage'
-import FestivalPage from './pages/FestivalPage'
+import AboutPage from './pages/AboutPage'
 import ArtistPage from './pages/ArtistPage'
 import EventPage from './pages/EventPage'
 import ErrorUnexpectedPage from './pages/Errors/ErrorUnexpectedPage'
@@ -22,16 +22,15 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<MainLayout />} >
-            <Route index path="/" element={<HomePage />} />
+            <Route index path="/" element={<CheckTokenRoute element={<HomePage />} />} />
             <Route path="/login" element={<PublicRoute element={<LoginPage />} />} />
             <Route path="/register" element={<PublicRoute element={<RegisterPage />} />} />
             <Route path="/profile" element={<PrivateRoute element={<ProfilePage />} />} />
             <Route path="/logout" element={<PrivateRoute element={<LogoutPage />} />} />
-            <Route path="/contact" element={<ContactPage />} />
-            <Route path='/artist/' element={<SearchPage />} />
-            <Route path="/artist/:artistID" element={<ArtistPage />} />
-            <Route path="/event/:eventID" element={<EventPage />} />
-            <Route path="/festival" element={<FestivalPage />} />
+            <Route path="/about" element={<CheckTokenRoute element={<AboutPage />} />} />
+            <Route path="/artist" element={<CheckTokenRoute element={<SearchPage />} />} />
+            <Route path="/artist/:artistID" element={<CheckTokenRoute element={<ArtistPage />} />} />
+            <Route path="/event/:eventID" element={<CheckTokenRoute element={<EventPage />} />} />
             <Route path='/error' element={<ErrorUnexpectedPage />} />
             <Route path='/unauthorized' element={<ErrorUnauthorizedPage />} />
             <Route path='*' element={<ErrorNotFoundPage />} />

@@ -4,9 +4,9 @@ import './Footer.css'
 const Footer = () => {
   return (
     <footer>
-      <button>
-        <Link to='/contact'>Contact Us</Link>
-      </button>
+      <Link to='/about' className="footer-button">
+        About Us
+      </Link>
     </footer>
   )
 }

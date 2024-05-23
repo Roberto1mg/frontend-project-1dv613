@@ -20,8 +20,7 @@ const Navbar = () => {
       <div className="right-section">
         <ul className="nav-list">
           <li><Link to="/artist" className="nav-link">Artists</Link></li>
-          <li><Link to="/festival" className="nav-link">Festivals</Link></li>
-          <li><Link to="/contact" className="nav-link">Contact Us</Link></li>
+          <li><Link to="/about" className="nav-link">About Us</Link></li>
       {isLoggedIn ? (
         <>
           <li><Link to="/profile" className="nav-link">Profile</Link></li>

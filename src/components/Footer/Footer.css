@@ -1,9 +1,35 @@
 footer {
   background-color: #333;
   color: white;
-  padding: 15px;
+  padding: 10px;
   position: fixed;
   bottom: 0;
   left: 0;
   right: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.footer-button {
+  background-color: #007bff;
+  color: white;
+  padding: 8px 20px;
+  text-decoration: none;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.footer-button:hover {
+  background-color: #0056b3;
+  transform: scale(1.05);
+}
+
+.footer-button:active {
+  background-color: #004494;
+  transform: scale(1);
 }
