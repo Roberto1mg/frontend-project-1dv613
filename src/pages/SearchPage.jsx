@@ -1,13 +1,12 @@
 import { useEffect, useState, useCallback } from 'react'
 import { useNavigate, useLocation } from 'react-router-dom'
 import apiUrl from '../utils/APIConfig'
-import ArtistInfo from '../components/ArtistInfo/ArtistInfo'
+import ArtistList from '../components/ArtistList/ArtistList'
 import Spinner from '../components/Spinner/Spinner'
 
 const SearchPage = () => {
   const [artistData, setArtistData] = useState([])
   const [loading, setLoading] = useState(true)
-  const jwt = localStorage.getItem('jwt')
   const location = useLocation()
   const searchValue = location.state?.searchValue || localStorage.getItem('searchValue')
   const navigate = useNavigate()
@@ -17,8 +16,7 @@ const SearchPage = () => {
       const response = await fetch(`${apiUrl}/artists/artists/${searchValue}`, {
         method: 'GET',
         headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${jwt}`
+          'Content-Type': 'application/json'
         },
       })
 
@@ -36,7 +34,7 @@ const SearchPage = () => {
     } finally {
       setLoading(false)
     }
-  }, [searchValue, jwt, navigate])
+  }, [searchValue, navigate])
 
   useEffect(() => {
     if (searchValue) {
@@ -58,16 +56,12 @@ const SearchPage = () => {
 
   return (
     <>
-      <h3 className="center-text">Results for: {searchValue}</h3>
-        {artistData && artistData.artists.length > 0 ? (
-          <div className="artist-container">
-          {artistData.artists.map(artist => (
-            <ArtistInfo key={artist.id} item={artist} type={'artist'} />
-          ))}
-          </div>
-        ) : (
-          <p className="center-text">Sorry, no artist found by that name.</p>
-        )}
+      <ArtistList 
+        artists={artistData.artists}
+        heading={<span>Results for: {searchValue}</span>}
+        headingSize={2}
+        noArtistMessage="Sorry, no artist found by that name."
+      />
     </>
   )
 }

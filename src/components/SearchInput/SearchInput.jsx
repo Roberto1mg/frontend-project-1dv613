@@ -10,6 +10,9 @@ const SearchInput = () => {
       navigate(`/artist/`, { state: { searchValue: e.target.value } })
       e.target.value=''
       e.target.blur()
+    } else if (e.key === '/') {
+      // Prevent '/' from being typed in the input.
+      e.preventDefault()
     }
   }
 

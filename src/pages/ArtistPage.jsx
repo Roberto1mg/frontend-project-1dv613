@@ -3,13 +3,13 @@ import { useParams } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom'
 import apiUrl from '../utils/APIConfig'
 import ArtistInfo from '../components/ArtistInfo/ArtistInfo'
+import EventList from '../components/EventList/EventList'
 import Spinner from '../components/Spinner/Spinner'
 
 const ArtistPage = () => {
   const { artistID } = useParams()
   const [eventsData, setEventsData] = useState([])
   const [loading, setLoading] = useState(true)
-  const jwt = localStorage.getItem('jwt')
   const navigate = useNavigate()
 
   const fetchEvents = useCallback(async () => {
@@ -17,8 +17,7 @@ const ArtistPage = () => {
       const response = await fetch(`${apiUrl}/artists/artist/${artistID}`, {
         method: 'GET',
         headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${jwt}`
+          'Content-Type': 'application/json'
         },
       })
 
@@ -40,7 +39,7 @@ const ArtistPage = () => {
     } finally {
       setLoading(false)
     }
-  }, [artistID, jwt, navigate])
+  }, [artistID, navigate])
 
   useEffect(() => {
     fetchEvents()
@@ -53,20 +52,13 @@ const ArtistPage = () => {
   return (
     <>
       <ArtistInfo item={eventsData.artists} type={'artist'} />
-      {eventsData && eventsData.events && eventsData.events.length > 0 ? (
-        <>
-          <h3 className="center-text">Future events:</h3>
-          <div className="artist-container">
-          {eventsData.events.map(event => (
-              <ArtistInfo key={event.id} item={event} type={'event'} />
-          ))}
-          </div>
-        </>
-      ) : (
-        <>
-          <p className="center-text">{eventsData.artists.name} currently has no future events planned.</p>
-        </>
-      )}
+
+      <EventList 
+        events={eventsData.events} 
+        heading="Future events:"
+        headingSize={3}
+        noEventMessage={`${eventsData.artists.name} currently has no future events planned`}
+      />
     </>
   )
 }

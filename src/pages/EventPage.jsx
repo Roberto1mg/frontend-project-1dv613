@@ -3,13 +3,13 @@ import { useParams } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom'
 import apiUrl from '../utils/APIConfig'
 import ArtistInfo from '../components/ArtistInfo/ArtistInfo'
+import ArtistList from '../components/ArtistList/ArtistList'
 import Spinner from '../components/Spinner/Spinner'
 
 const EventPage = () => {
   const { eventID } = useParams()
   const [eventsData, setEventsData] = useState([])
   const [loading, setLoading] = useState(true)
-  const jwt = localStorage.getItem('jwt')
   const navigate = useNavigate()
 
   const fetchEvents = useCallback(async () => {
@@ -17,8 +17,7 @@ const EventPage = () => {
       const response = await fetch(`${apiUrl}/artists/event/${eventID}`, {
         method: 'GET',
         headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${jwt}`
+          'Content-Type': 'application/json'
         },
       })
 
@@ -28,8 +27,7 @@ const EventPage = () => {
       if (!eventData.success) {
         navigate('/404')
         return
-      } else 
-      if (!response.ok) {
+      } else if (!response.ok) {
         navigate('/error')
         throw new Error('Failed to fetch events data')
       }
@@ -40,7 +38,7 @@ const EventPage = () => {
     } finally {
       setLoading(false)
     }
-  }, [eventID, jwt, navigate])
+  }, [eventID, navigate])
 
   useEffect(() => {
     fetchEvents()
@@ -54,12 +52,11 @@ const EventPage = () => {
     <>
       <ArtistInfo item={eventsData.events} type={'event'} />
 
-      <h4 className="center-text">Performing in - {eventsData.events.name}:</h4>
-      <div className="artist-container">
-        {eventsData.artists.map(artist => (
-          <ArtistInfo key={artist.id} item={artist} type={'artist'} />
-        ))}
-      </div>
+      <ArtistList 
+        artists={eventsData.artists} 
+        heading={<span>Performing in - {eventsData.events.name}:</span>}
+        headingSize={4}
+      />
     </>
   )
 }
