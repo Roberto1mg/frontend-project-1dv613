@@ -9,7 +9,7 @@ const AboutPage = () => {
         Welcome to our platform! Our application is dedicated to helping you discover and connect with your favorite artists and festivals. Whether you&rsquo;re a music enthusiast looking to explore new artists or a festival-goer planning your next adventure, we have you covered.
       </p>
       <p>
-        With our powerful search functionality, you can easily find information about artists and festivals. Simply enter the name of the artist or festival you&rsquo;re interested in, and we&rsquo;ll provide you with information and upcoming events.
+        With our search functionality, you can easily find information about artists and festivals. Simply enter the name of the artist you&rsquo;re interested in, and we&rsquo;ll provide you with information and upcoming events.
       </p>
       <p>
         One of the key features of our platform is the ability to favorite artists and events. By creating an account, you can save your favorite artists and festivals, making it easy to keep track of the ones you love. This way, you&rsquo;ll never miss out on any updates or announcements from your favorite artists and events.

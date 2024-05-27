@@ -20,7 +20,7 @@ const SearchInput = () => {
     <input
       className="nav-text-input"
       type="text"
-      placeholder="Search for artists or festivals here!"
+      placeholder="Search for artists here!"
       onKeyDown={handleKeyDown}
     />
   )
