@@ -21,7 +21,6 @@ const SearchPage = () => {
       })
 
       const responseData = await response.json()
-      console.log(responseData)
 
       if (!response.ok) {
         navigate('/error')
@@ -58,7 +57,7 @@ const SearchPage = () => {
     <>
       <ArtistList 
         artists={artistData.artists}
-        heading={<span>Results for: {searchValue}</span>}
+        heading={`Results for: ${searchValue}`}
         headingSize={2}
         noArtistMessage="Sorry, no artist found by that name."
       />

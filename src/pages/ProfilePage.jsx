@@ -12,6 +12,7 @@ const ProfilePage = () => {
   const [currentEventsPage, setCurrentEventsPage] = useState(1)
   const jwt = localStorage.getItem('jwt')
 
+  // Fetches the page for the artists (default page 1).
   const fetchArtists = useCallback(async (page = 1) => {
     try {
       const artistsResponse = await fetch(`${apiUrl}/favorites/artists?page=${page}`, {
@@ -28,6 +29,7 @@ const ProfilePage = () => {
         throw new Error('Failed to fetch artists')
       }
 
+      // Updates the list of artists.
       setCurrentArtists(prevState => ({
         ...prevState,
         artists: [
@@ -42,6 +44,7 @@ const ProfilePage = () => {
     }
   }, [jwt])
 
+  // Fetches the page for the events (default page 1).
   const fetchEvents = useCallback(async (page = 1) => {
     try {
       const eventResponse = await fetch(`${apiUrl}/favorites/events?page=${page}`, {
@@ -58,6 +61,7 @@ const ProfilePage = () => {
         throw new Error('Failed to fetch events')
       }
 
+      // Updates the list of events.
       setCurrentEvents(prevState => ({
         ...prevState,
         events: [

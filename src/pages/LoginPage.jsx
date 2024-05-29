@@ -33,9 +33,7 @@ const LoginPage = () => {
       }
 
       const responseData = await response.json()
-      console.log(responseData)
 
-      // Clear input fields
       setUsername('')
       setPassword('')
 
@@ -45,7 +43,6 @@ const LoginPage = () => {
 
       return navigate('/profile')
     } catch (error) {
-      console.log(error)
       toast.error('Failed to log in')
     } 
   }

@@ -31,8 +31,17 @@ const RegisterPage = () => {
         },
         body: JSON.stringify(newUser)
       })
-  
-      if (!response.ok) {
+
+      if (username.length < 3) {
+        toast.error('Username must be at least 3 characters long')
+        return
+      } else if (password.length < 8) {
+        toast.error('Password must be at least 8 characters long')
+        return
+      } else if (response.status === 409) {
+        toast.error('Username or email already in use')
+        return
+      } else if (!response.ok) {
         throw new Error('Failed to register account')
       }
   

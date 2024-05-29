@@ -22,9 +22,8 @@ const ArtistPage = () => {
       })
 
       const eventData = await response.json()
-      console.log(eventData)
 
-      if (!eventData.success) {
+      if (response.status === 404) {
         navigate('/404')
         return
       } else 

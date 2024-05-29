@@ -22,9 +22,8 @@ const EventPage = () => {
       })
 
       const eventData = await response.json()
-      console.log(eventData)
 
-      if (!eventData.success) {
+      if (response.status === 404) {
         navigate('/404')
         return
       } else if (!response.ok) {
@@ -54,7 +53,7 @@ const EventPage = () => {
 
       <ArtistList 
         artists={eventsData.artists} 
-        heading={<span>Performing in - {eventsData.events.name}:</span>}
+        heading={`Performing in - ${eventsData.events.name}:`}
         headingSize={4}
       />
     </>
